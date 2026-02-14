@@ -1,0 +1,564 @@
+/*
+  TKU front-end styles
+  - Scoped to .tku-* classes to avoid theme/Elementor collisions
+  - Neutral palette (inherits typography from theme)
+*/
+
+/*
+  Wrapper-scoped design tokens
+  - Keeps per-widget theme (light/dark/auto) controllable from Elementor
+  - Avoids polluting global :root
+*/
+
+.tku-wrap{
+  --tku-surface: #ffffff;
+  --tku-surface-2: #f9fafb;
+  --tku-border: #e5e7eb;
+  --tku-border-2: #d1d5db;
+  --tku-text: #111827;
+  --tku-muted: #4b5563;
+  --tku-primary: #111827;
+  --tku-primary-2: #0f172a;
+  --tku-accent: #111827;
+  --tku-accent-text: #ffffff;
+  --tku-success-bg: #f0fdf4;
+  --tku-success-bd: #bbf7d0;
+  --tku-success-tx: #166534;
+  --tku-error-bg: #fff1f2;
+  --tku-error-bd: #fecaca;
+  --tku-error-tx: #991b1b;
+  --tku-radius: 16px;
+  --tku-radius-sm: 12px;
+  --tku-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+
+  /* Elementor control: max width */
+  --tku-max-width: 760px;
+}
+
+/* Card */
+.tku-card{
+  box-sizing:border-box;
+  width:100%;
+  max-width:var(--tku-max-width, 760px);
+  margin:0 auto;
+  border:1px solid var(--tku-border);
+  border-radius: var(--tku-radius);
+  padding:20px;
+  background: var(--tku-surface);
+  box-shadow: var(--tku-shadow);
+}
+
+.tku-card h3{
+  margin:0;
+  font-size:20px;
+  line-height:1.25;
+  color: var(--tku-text);
+}
+
+.tku-small{
+  margin-top:10px;
+  font-size:13px;
+  color: var(--tku-muted);
+}
+
+/* Notices */
+.tku-error,
+.tku-success{
+  box-sizing:border-box;
+  padding:12px 14px;
+  border-radius: var(--tku-radius-sm);
+  margin-top:12px;
+}
+
+.tku-error{
+  border:1px solid var(--tku-error-bd);
+  background: var(--tku-error-bg);
+  color: var(--tku-error-tx);
+}
+
+.tku-success{
+  border:1px solid var(--tku-success-bd);
+  background: var(--tku-success-bg);
+  color: var(--tku-success-tx);
+}
+
+.tku-error ul,
+.tku-success ul,
+.tku-hint ul{
+  margin:8px 0 0 0;
+  padding-left:18px;
+}
+
+/* Form */
+.tku-form{
+  margin-top:14px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.tku-field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.tku-form label{
+  font-weight:650;
+  font-size:13px;
+  color: var(--tku-text);
+}
+
+.tku-required{ color:#dc2626; font-weight:800; }
+
+.tku-help{
+  font-size:12px;
+  color: var(--tku-muted);
+}
+
+.tku-form input,
+.tku-form select,
+.tku-form textarea{
+  box-sizing:border-box;
+  width:100%;
+  border:1px solid var(--tku-border-2);
+  border-radius: 14px;
+  padding:11px 12px;
+  font-size:14px;
+  color: var(--tku-text);
+  background: var(--tku-surface);
+  transition: border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+
+.tku-form textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.tku-form input::placeholder,
+.tku-form textarea::placeholder{
+  color:#9ca3af;
+}
+
+.tku-form input:focus,
+.tku-form select:focus,
+.tku-form textarea:focus{
+  outline:none;
+  border-color: rgba(17, 24, 39, 0.55);
+  box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.08);
+}
+
+.tku-form input:focus-visible,
+.tku-form select:focus-visible,
+.tku-form textarea:focus-visible{
+  outline:none;
+}
+
+.tku-form input:invalid,
+.tku-form textarea:invalid{
+  /* Only shows once the user interacts in most browsers */
+  border-color: rgba(153, 27, 27, 0.35);
+}
+
+/* Actions */
+.tku-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:2px;
+}
+
+.tku-form button{
+  appearance:none;
+  border:0;
+  border-radius: 14px;
+  padding:11px 15px;
+  cursor:pointer;
+  background: var(--tku-accent);
+  color: var(--tku-accent-text);
+  font-weight:750;
+  font-size:14px;
+  letter-spacing:0.2px;
+  transition: transform 90ms ease, filter 120ms ease, opacity 120ms ease;
+}
+
+.tku-form button:hover{ filter: brightness(1.05); }
+.tku-form button:active{ transform: translateY(1px); }
+
+.tku-form button.secondary{
+  background: var(--tku-surface-2);
+  color: var(--tku-text);
+  border:1px solid var(--tku-border-2);
+}
+
+.tku-form button:focus{
+  outline:none;
+  box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.10);
+}
+
+.tku-form button[disabled]{
+  opacity:0.6;
+  cursor:not-allowed;
+}
+
+/* Progress / Stepper */
+.tku-progress{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:12px 0 8px 0;
+  flex-wrap:wrap;
+}
+
+.tku-step{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius: 999px;
+  border:1px solid var(--tku-border);
+  background: var(--tku-surface-2);
+  color: var(--tku-muted);
+  font-size:12px;
+  line-height:1;
+  white-space:nowrap;
+}
+
+.tku-step .tku-step-num{
+  width:22px;
+  height:22px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  font-size:12px;
+  border:1px solid var(--tku-border);
+  background: #fff;
+  color: var(--tku-text);
+}
+
+.tku-step.active{
+  background: rgba(17, 24, 39, 0.08);
+  border-color: rgba(17, 24, 39, 0.22);
+  color: var(--tku-text);
+}
+
+.tku-step.active .tku-step-num{
+  background: var(--tku-accent);
+  border-color: var(--tku-accent);
+  color: var(--tku-accent-text);
+}
+
+.tku-step.done{
+  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(22, 163, 74, 0.20);
+  color: var(--tku-text);
+}
+
+.tku-step.done .tku-step-num{
+  background: #16a34a;
+  border-color:#16a34a;
+  color:#fff;
+}
+
+/* Hint box */
+.tku-hint{
+  border:1px dashed var(--tku-border-2);
+  background: var(--tku-surface-2);
+  padding:12px 14px;
+  border-radius: var(--tku-radius-sm);
+  font-size:13px;
+  color: var(--tku-text);
+}
+
+/* Turnstile spacing */
+.tku-turnstile{
+  padding:8px 0 2px;
+}
+
+/* Honeypot */
+.tku-hp{ position:absolute; left:-9999px; top:-9999px; height:1px; width:1px; opacity:0; }
+
+/* Loading state */
+.tku-form.tku-loading{
+  opacity: 0.95;
+}
+
+.tku-form.tku-loading button{
+  pointer-events:none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 520px){
+  .tku-card{ padding:16px; border-radius: 14px; }
+  .tku-actions{ flex-direction:column; }
+  .tku-actions button{ width:100%; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .tku-form input,
+  .tku-form select,
+  .tku-form textarea,
+  .tku-form button{ transition:none; }
+}
+
+/* Dark theme (forced) */
+.tku-wrap.tku-theme-dark{
+  --tku-surface: #0b1220;
+  --tku-surface-2: #0f172a;
+  --tku-border: rgba(148, 163, 184, 0.22);
+  --tku-border-2: rgba(148, 163, 184, 0.28);
+  --tku-text: #e5e7eb;
+  --tku-muted: #cbd5e1;
+  --tku-primary: #e5e7eb;
+  --tku-primary-2: #f8fafc;
+  --tku-accent: #e5e7eb;
+  --tku-accent-text: #0b1220;
+  --tku-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
+.tku-wrap.tku-theme-dark .tku-form input,
+.tku-wrap.tku-theme-dark .tku-form select,
+.tku-wrap.tku-theme-dark .tku-form textarea{ background: rgba(2,6,23,0.35); }
+
+.tku-wrap.tku-theme-dark .tku-form button{ background: var(--tku-accent); color: var(--tku-accent-text); }
+.tku-wrap.tku-theme-dark .tku-form button.secondary{ background: rgba(148,163,184,0.10); color: var(--tku-text); }
+
+/* Auto theme: follows device preference */
+@media (prefers-color-scheme: dark){
+  .tku-wrap.tku-theme-auto{
+    --tku-surface: #0b1220;
+    --tku-surface-2: #0f172a;
+    --tku-border: rgba(148, 163, 184, 0.22);
+    --tku-border-2: rgba(148, 163, 184, 0.28);
+    --tku-text: #e5e7eb;
+    --tku-muted: #cbd5e1;
+    --tku-primary: #e5e7eb;
+    --tku-primary-2: #f8fafc;
+    --tku-accent: #e5e7eb;
+    --tku-accent-text: #0b1220;
+    --tku-shadow: 0 10px 28px rgba(0,0,0,0.35);
+  }
+
+  .tku-wrap.tku-theme-auto .tku-form input,
+  .tku-wrap.tku-theme-auto .tku-form select,
+  .tku-wrap.tku-theme-auto .tku-form textarea{ background: rgba(2,6,23,0.35); }
+
+  .tku-wrap.tku-theme-auto .tku-form button{ background: var(--tku-accent); color: var(--tku-accent-text); }
+  .tku-wrap.tku-theme-auto .tku-form button.secondary{ background: rgba(148,163,184,0.10); color: var(--tku-text); }
+}
+
+
+/* Layout helpers */
+.tku-grid{ display:grid; gap:14px; }
+.tku-grid-2{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tku-span-2{ grid-column: 1 / -1; }
+
+@media (max-width: 720px){
+  .tku-grid-2{ grid-template-columns: 1fr; }
+}
+
+/* Radio group */
+.tku-radio{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.tku-radio label{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  font-weight:650;
+  font-size:13px;
+  color: var(--tku-text);
+  cursor:pointer;
+}
+.tku-radio input{
+  width:auto;
+  margin:0;
+}
+.tku-muted-inline{
+  font-weight:600;
+  color: var(--tku-muted);
+}
+
+/* Conditional blocks (JS toggles visibility) */
+.tku-conditional{ display:none; }
+
+/* Divider helper */
+.tku-divider{ height:1px; background: var(--tku-border); margin: 6px 0; }
+
+/* ------------------------------------------------------------
+   Friendly UI section wrapper (full-width background + centered content)
+------------------------------------------------------------ */
+
+.tku-wrap.tku-section{
+  position: relative;
+  padding: var(--tku-pad-y, 44px) var(--tku-pad-x, 18px);
+  background: var(--tku-bg, transparent);
+  overflow: hidden;
+}
+
+/* Full-width background while keeping centered content */
+.tku-wrap.tku-section.tku-fullbleed{
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.tku-wrap.tku-section .tku-container{
+  position: relative;
+  z-index: 1;
+  max-width: var(--tku-max-width, 900px);
+  margin: 0 auto;
+}
+
+/* Background modes */
+.tku-wrap.tku-section.tku-bg-soft{
+  background: radial-gradient(1200px 500px at 12% 8%, rgba(59,130,246,0.12), transparent 55%),
+              radial-gradient(900px 450px at 90% 18%, rgba(16,185,129,0.10), transparent 55%),
+              linear-gradient(180deg, rgba(255,255,255,0.0), rgba(15,23,42,0.02));
+}
+
+.tku-wrap.tku-section.tku-bg-color{
+  background: var(--tku-bg-color, #f8fafc);
+}
+
+.tku-wrap.tku-section.tku-bg-image{
+  background-image: var(--tku-bg-image);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Overlay over background image/color */
+.tku-wrap.tku-section::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--tku-overlay-color, #0b1220);
+  opacity: var(--tku-overlay-opacity, 0);
+  pointer-events: none;
+}
+
+.tku-wrap.tku-section.tku-theme-dark.tku-bg-soft{
+  background: radial-gradient(1200px 500px at 12% 8%, rgba(59,130,246,0.18), transparent 55%),
+              radial-gradient(900px 450px at 90% 18%, rgba(16,185,129,0.14), transparent 55%),
+              linear-gradient(180deg, rgba(2,6,23,0.5), rgba(2,6,23,0.3));
+}
+
+@media (prefers-color-scheme: dark){
+  .tku-wrap.tku-section.tku-theme-auto.tku-bg-soft{
+    background: radial-gradient(1200px 500px at 12% 8%, rgba(59,130,246,0.18), transparent 55%),
+                radial-gradient(900px 450px at 90% 18%, rgba(16,185,129,0.14), transparent 55%),
+                linear-gradient(180deg, rgba(2,6,23,0.5), rgba(2,6,23,0.3));
+  }
+}
+
+/* Hero header */
+.tku-hero{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.tku-hero-left{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.tku-logo{
+  width: var(--tku-logo-size, 48px);
+  height: var(--tku-logo-size, 48px);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(148,163,184,0.12);
+  border: 1px solid var(--tku-border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex: 0 0 auto;
+}
+
+.tku-logo img{ width:100%; height:100%; object-fit: contain; }
+
+.tku-hero-title{
+  margin: 0;
+  font-size: clamp(20px, 2.2vw, 28px);
+  letter-spacing: -0.02em;
+}
+
+.tku-hero-subtitle{
+  margin: 4px 0 0;
+  color: var(--tku-muted);
+  font-weight: 560;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.tku-hero-right{ display:none; }
+@media (min-width: 880px){
+  .tku-hero-right{ display:block; }
+  .tku-hero-media{
+    width: min(280px, 34vw);
+    max-width: 320px;
+    border-radius: 22px;
+    border: 1px solid var(--tku-border);
+    background: rgba(148,163,184,0.10);
+    overflow: hidden;
+    box-shadow: var(--tku-shadow);
+  }
+  .tku-hero-media img{ display:block; width:100%; height:auto; }
+}
+
+/* Watermark layer */
+.tku-watermark{
+  position:absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events:none;
+  opacity: var(--tku-watermark-opacity, 0.08);
+  background-image: var(--tku-watermark-image);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: var(--tku-watermark-size, 260px);
+  filter: grayscale(1);
+}
+
+/* Card style variants */
+.tku-card.tku-card-glass{
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(12px);
+}
+
+.tku-wrap.tku-theme-dark .tku-card.tku-card-glass{
+  background: rgba(11,18,32,0.58);
+}
+
+@media (prefers-color-scheme: dark){
+  .tku-wrap.tku-theme-auto .tku-card.tku-card-glass{
+    background: rgba(11,18,32,0.58);
+  }
+}
+
+/* Reveal animations (tku-ui.js toggles .tku-visible) */
+.tku-anim .tku-reveal{
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .65s ease, transform .65s ease;
+  will-change: opacity, transform;
+}
+
+.tku-anim .tku-visible{
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .tku-anim .tku-reveal{ opacity:1; transform:none; transition:none; }
+}
+
