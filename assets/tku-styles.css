@@ -38,6 +38,8 @@
 /* Card */
 .tku-card{
   box-sizing:border-box;
+  position: relative;
+  overflow: hidden;
   width:100%;
   max-width:var(--tku-max-width, 760px);
   margin:0 auto;
@@ -46,6 +48,18 @@
   padding:20px;
   background: var(--tku-surface);
   box-shadow: var(--tku-shadow);
+}
+
+.tku-card::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:3px;
+  background: linear-gradient(90deg, var(--tku-accent), rgba(59,130,246,0.55));
+  opacity:.3;
+  pointer-events:none;
 }
 
 .tku-card h3{
@@ -562,3 +576,65 @@
   .tku-anim .tku-reveal{ opacity:1; transform:none; transition:none; }
 }
 
+
+
+/* Status lookup result card */
+.tku-status-panel{
+  margin-top: 14px;
+}
+
+.tku-status-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.tku-status-label{
+  font-size:13px;
+  font-weight:700;
+  color: var(--tku-muted);
+}
+
+.tku-status-badge{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(22,163,74,0.25);
+  background: rgba(22,163,74,0.12);
+  color:#166534;
+  font-size:12px;
+  font-weight:800;
+  line-height:1;
+}
+
+.tku-status-badge.tku-status-need_more{
+  border-color: rgba(217,119,6,0.28);
+  background: rgba(245,158,11,0.14);
+  color:#92400e;
+}
+
+.tku-status-badge.tku-status-closed,
+.tku-status-badge.tku-status-anonymized{
+  border-color: rgba(107,114,128,0.34);
+  background: rgba(107,114,128,0.16);
+  color:#374151;
+}
+
+.tku-status-badge.tku-status-new,
+.tku-status-badge.tku-status-in_progress{
+  border-color: rgba(37,99,235,0.24);
+  background: rgba(59,130,246,0.14);
+  color:#1d4ed8;
+}
+
+.tku-status-meta,
+.tku-status-help{
+  margin-top:8px;
+  font-size:13px;
+  line-height:1.45;
+}
+
+.tku-status-meta{ color: var(--tku-muted); }
+.tku-status-help{ font-weight:560; }

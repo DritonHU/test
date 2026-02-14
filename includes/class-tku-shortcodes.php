@@ -21,6 +21,55 @@ class TKU_Shortcodes {
         return $map[$status] ?? $status;
     }
 
+    private static function status_help_text($status) {
+        $map = [
+            'new' => 'Az ügy rögzítve lett, hamarosan feldolgozásra kerül.',
+            'in_progress' => 'Az űrlap még szerkeszthető, bármikor folytatható a mentett linkkel.',
+            'submitted' => 'Az ügyet sikeresen véglegesítetted, hamarosan megkezdjük a feldolgozást.',
+            'processing' => 'Az ügy aktív feldolgozás alatt áll.',
+            'need_more' => 'További adatra vagy dokumentumra van szükség. Kérjük ellenőrizd az emailjeidet.',
+            'closed' => 'Az ügy lezárásra került.',
+            'anonymized' => 'Az ügy adatai anonimizálásra kerültek az adatmegőrzési szabályok szerint.',
+        ];
+        return $map[$status] ?? '';
+    }
+
+    private static function format_case_datetime($value) {
+        $value = trim((string)$value);
+        if ($value === '' || $value === '0000-00-00 00:00:00') return '';
+
+        $ts = strtotime($value);
+        if (!$ts) return '';
+
+        return wp_date('Y.m.d. H:i', $ts);
+    }
+
+
+    private static function render_status_result($status, $updated, $show_status_help) {
+        $status = sanitize_key((string)$status);
+        $status_label = self::status_label($status);
+
+        $out = '<div class="tku-success tku-status-panel">';
+        $out .= '<div class="tku-status-row">';
+        $out .= '<span class="tku-status-label">Státusz</span>';
+        $out .= '<span class="tku-status-badge tku-status-' . esc_attr($status) . '">' . esc_html($status_label) . '</span>';
+        $out .= '</div>';
+
+        if ($updated) {
+            $out .= '<div class="tku-status-meta">Utoljára frissítve: ' . esc_html($updated) . '</div>';
+        }
+
+        if ($show_status_help) {
+            $help = self::status_help_text($status);
+            if ($help) {
+                $out .= '<div class="tku-status-help">' . esc_html($help) . '</div>';
+            }
+        }
+
+        $out .= '</div>';
+        return $out;
+    }
+
     private static function get_ip() {
         // Best-effort
         foreach (['HTTP_CF_CONNECTING_IP','HTTP_X_FORWARDED_FOR','REMOTE_ADDR'] as $k) {
@@ -897,6 +946,7 @@ class TKU_Shortcodes {
         $atts = shortcode_atts([
             'title' => 'Ügy státusz lekérdezése',
             'button' => 'Lekérdezés',
+            'show_status_help' => '1',
             'max_width' => '',
             'theme' => 'auto',
             'accent' => '',
@@ -925,6 +975,7 @@ class TKU_Shortcodes {
 
         $title = sanitize_text_field($atts['title']);
         $button_label = sanitize_text_field($atts['button']);
+        $show_status_help = self::sanitize_bool($atts['show_status_help']);
         $theme = self::sanitize_theme($atts['theme']);
         $max_width = self::sanitize_css_size($atts['max_width']);
         $accent = self::sanitize_hex($atts['accent']);
@@ -980,7 +1031,8 @@ class TKU_Shortcodes {
                             }
 
                             if (!$errors) {
-                                $result = 'Státusz: <strong>' . esc_html(self::status_label($case['status'])) . '</strong>';
+                                $updated = self::format_case_datetime($case['updated_at'] ?? '');
+                                $result = self::render_status_result($case['status'] ?? '', $updated, $show_status_help);
                             }
                         }
                     }
@@ -993,7 +1045,7 @@ class TKU_Shortcodes {
             foreach ($errors as $e) $out .= '<li>' . esc_html($e) . '</li>';
             $out .= '</ul></div>';
         }
-        if ($result) $out .= '<div class="tku-success">' . $result . '</div>';
+        if ($result) $out .= $result;
 
         $require_last4 = (int) get_option('tku_status_require_phone_last4', 0);
 
