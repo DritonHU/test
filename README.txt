@@ -1,4 +1,4 @@
-Temetkezési Ügyintézés (Elementor) v1.2.1
+Temetkezési Ügyintézés (Elementor) v1.3.1
 
 - Elementor widgetek: Ügy indítása, Ügy folytatása, Státusz lekérdezés
 - Multi-step folytatás (3 lépés) + hiányzó kötelező mezők összegző
@@ -25,9 +25,19 @@ Shortcode-ok:
 Shortcode attribútumok (opcionális):
 - start: title, button, max_width, theme
 - continue: title, label_back, label_save, label_next, label_finalize, max_width, theme
-- status: title, button, max_width, theme
+- status: title, button, show_status_help, max_width, theme
 
 Új UI attribútumok (mindhárom shortcode-nál opcionális):
 fullbleed, bg_mode (none|soft|color|image), bg_color, bg_image, overlay_color, overlay_opacity,
 pad_x, pad_y, show_header, subtitle, logo, logo_size, hero_image,
 watermark, watermark_auto, watermark_opacity, watermark_size, card_style (solid|glass), anim
+
+
+Új 1.3.0:
+- Rendezett plugin struktúra (`includes/`, `includes/elementor/widgets/`, `assets/`)
+- Státusz lekérdezésnél opcionális állapotmagyarázat + „utoljára frissítve” dátum
+
+
+Új 1.3.1:
+- Frontend finomítás: státusz lekérdezés eredmény megújult badge-es blokkban jelenik meg
+- Finomabb kártya vizuális kiemelés (felső gradient sáv) a modernebb megjelenésért
